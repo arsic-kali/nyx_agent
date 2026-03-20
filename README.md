@@ -1,6 +1,6 @@
 # AROW — Mythic C2 Linux Agent
 
-Arow is a Python-based Linux agent for the [Mythic C2 framework](https://github.com/its-a-feature/Mythic). It is designed as a learning-focused, modular agent that compiles to a standalone binary using PyInstaller.
+AROW is a Python-based Linux agent for the [Mythic C2 framework](https://github.com/its-a-feature/Mythic). It is designed as a learning-focused, modular agent that compiles to a standalone binary using PyInstaller.
 
 ---
 
