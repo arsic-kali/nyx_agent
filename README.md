@@ -7,8 +7,6 @@ Arow is a Python-based Linux agent for the [Mythic C2 framework](https://github.
 ## Features
 
 - Registers with Mythic via the HTTP C2 profile
-- Compiled to a self-contained Linux binary at build time (no Python required on target)
-- Jittered sleep intervals to avoid predictable beaconing
 - Modular command architecture — new commands are added without touching core agent logic
 
 ## Requirements
