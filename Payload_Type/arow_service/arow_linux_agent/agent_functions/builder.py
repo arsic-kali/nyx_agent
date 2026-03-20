@@ -13,22 +13,7 @@ class ArowLinuxAgent(PayloadType):
     wrapped_payloads = []
     note = "Simple Linux Python callback agent"
     supports_dynamic_loading = False
-    build_parameters = [
-        BuildParameter(
-            name="sleep_interval",
-            parameter_type=BuildParameterType.Number,
-            description="Seconds between callbacks",
-            default_value=5,
-            required=False,
-        ),
-        BuildParameter(
-            name="jitter",
-            parameter_type=BuildParameterType.Number,
-            description="Jitter percentage (0-100)",
-            default_value=10,
-            required=False,
-        ),
-    ]
+    build_parameters = []
     c2_profiles = ["http"]
     mythic_encrypts = False
     translation_container = None
@@ -50,8 +35,10 @@ class ArowLinuxAgent(PayloadType):
             profile_params = c2_profile.get_parameters_dict()
             callback_host = profile_params.get("callback_host", "http://127.0.0.1")
             callback_port = profile_params.get("callback_port", 80)
-            callback_interval = self.get_parameter("sleep_interval")
-            jitter = self.get_parameter("jitter")
+            # Read sleep/jitter from the HTTP C2 profile so the operator
+            # configures everything in one place — the listener settings
+            callback_interval = profile_params.get("callback_interval", 5)
+            jitter = profile_params.get("callback_jitter", 10)
             uuid = self.uuid
 
             agent_code = agent_code.replace("REPLACE_CALLBACK_HOST", str(callback_host))
