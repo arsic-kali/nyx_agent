@@ -34,11 +34,10 @@ Mythic will build the Docker container automatically. The container installs all
 
 1. Open the Mythic UI
 2. Navigate to **Payloads** → **Generate New Payload**
-3. Select **arow_linux_agent**, choose your HTTP C2 profile, and configure:
-   - **Sleep Interval** — seconds between callbacks (default: 5)
-   - **Jitter** — randomness percentage applied to sleep interval (default: 10%)
-4. Download the compiled binary
-5. Deploy to target: `chmod +x <payload> && ./<payload>`
+3. Navigate through the Payload Creation
+4. Generate the Payload 
+5. Download the compiled binary
+6. Deploy to target: `chmod +x <payload> && ./<payload>`
 
 ---
 
