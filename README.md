@@ -25,7 +25,7 @@ Install the agent into your Mythic instance:
 
 ```bash
 cd /opt/Mythic
-sudo ./mythic-cli install folder /path/to/arow_agent/Payload_Type/arow_service
+sudo ./mythic-cli install folder /path/to/arow_agent/
 ```
 
 Mythic will build the Docker container automatically. The container installs all dependencies including PyInstaller and binutils.
@@ -60,18 +60,15 @@ arow_agent/
 ├── config.json                          # Mythic install config
 └── Payload_Type/
     └── arow_service/
-        ├── Dockerfile                   # Container definition (Python 3.11, binutils, PyInstaller)
+        ├── Dockerfile                   # Container definition
         ├── main.py                      # Service entrypoint — starts Mythic container runtime
         └── arow_linux_agent/
             ├── agent_code/              # Code compiled into the payload and run on target
             │   ├── agent.py             # Core agent: checkin, tasking loop, command dispatch
             │   └── commands/            # One file per command, each exposing execute()
-            │       ├── shell.py
-            │       └── exit.py
             └── agent_functions/         # Mythic-side definitions — run in service container
-                ├── builder.py           # Payload build logic (string substitution + PyInstaller)
-                ├── shell.py             # shell command definition (args, UI, MITRE mapping)
-                └── exit.py              # exit command definition
+                ├── builder.py           # Payload build logic
+                ├── <cmd>.py             # Mythic-side commanding logic
 ```
 
 ---
