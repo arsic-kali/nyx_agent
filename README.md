@@ -110,7 +110,7 @@ from arow_linux_agent.agent_functions import <name>   # add this line
 
 Reinstall the service after any changes:
 ```bash
-sudo ./mythic-cli install folder /path/to/arow_agent/Payload_Type/arow_service
+sudo ./mythic-cli install folder /path/to/arow_agent/
 ```
 
 ---
