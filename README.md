@@ -46,6 +46,9 @@ Mythic will build the Docker container automatically. The container installs all
 | Command | Description |
 |---------|-------------|
 | `shell` | Execute a shell command and return output |
+| `ls`    | List contents of the current working directory |
+| `cd`    | Change the agent's current working directory |
+| `pwd`   | Print the current working directory |
 | `exit`  | Terminate the agent and close the callback |
 
 ---
