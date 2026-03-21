@@ -1,6 +1,6 @@
-# AROW — Mythic C2 Linux Agent
+# Nyx — Mythic C2 Linux Agent
 
-AROW is a Python-based Linux agent for the [Mythic C2 framework](https://github.com/its-a-feature/Mythic). It is designed as a learning-focused, modular agent that compiles to a standalone binary using PyInstaller.
+Nyx is a Python-based Linux agent for the [Mythic C2 framework](https://github.com/its-a-feature/Mythic). It is designed as a learning-focused, modular agent that compiles to a standalone binary using PyInstaller.
 
 ---
 
@@ -23,7 +23,7 @@ Install the agent into your Mythic instance:
 
 ```bash
 cd /opt/Mythic
-sudo ./mythic-cli install folder /path/to/arow_agent/
+sudo ./mythic-cli install folder /path/to/nyx_agent/
 ```
 
 Mythic will build the Docker container automatically. The container installs all dependencies including PyInstaller and binutils.
@@ -35,7 +35,7 @@ Mythic will build the Docker container automatically. The container installs all
 1. Open the Mythic UI
 2. Navigate to **Payloads** → **Generate New Payload**
 3. Navigate through the Payload Creation
-4. Generate the Payload 
+4. Generate the Payload
 5. Download the compiled binary
 6. Deploy to target: `chmod +x <payload> && ./<payload>`
 
@@ -53,13 +53,13 @@ Mythic will build the Docker container automatically. The container installs all
 ## Project Structure
 
 ```
-arow_agent/
+nyx_agent/
 ├── config.json                          # Mythic install config
 └── Payload_Type/
-    └── arow_service/
+    └── nyx_service/
         ├── Dockerfile                   # Container definition
         ├── main.py                      # Service entrypoint — starts Mythic container runtime
-        └── arow_linux_agent/
+        └── nyx_linux_agent/
             ├── agent_code/              # Code compiled into the payload and run on target
             │   ├── agent.py             # Core agent: checkin, tasking loop, command dispatch
             │   └── commands/            # One file per command, each exposing execute()
@@ -99,12 +99,12 @@ COMMANDS = {
 
 ```python
 # agent_functions/__init__.py
-from arow_linux_agent.agent_functions import <name>   # add this line
+from nyx_linux_agent.agent_functions import <name>   # add this line
 ```
 
 Reinstall the service after any changes:
 ```bash
-sudo ./mythic-cli install folder /path/to/arow_agent/
+sudo ./mythic-cli install folder /path/to/nyx_agent/
 ```
 
 ---

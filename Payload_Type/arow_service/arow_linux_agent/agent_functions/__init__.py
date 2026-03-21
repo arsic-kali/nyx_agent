@@ -1,2 +1,0 @@
-from arow_linux_agent.agent_functions import shell
-from arow_linux_agent.agent_functions import exit
