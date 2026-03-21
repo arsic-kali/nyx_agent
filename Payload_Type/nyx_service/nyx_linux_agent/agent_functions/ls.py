@@ -17,7 +17,7 @@ class LsCommand(CommandBase):
     cmd = "ls"
     needs_admin = False
     help_cmd = "ls"
-    description = "List the contents of a directory."
+    description = "List the contents of a directory.\n"
     version = 1
     author = "@arsic"
     attackmapping = []

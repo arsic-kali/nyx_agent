@@ -20,7 +20,7 @@ class ExitCommand(CommandBase):
     cmd = "exit"
     needs_admin = False
     help_cmd = "exit"
-    description = "Task the agent to exit and terminate the callback."
+    description = "Task the agent to exit and terminate the callback.\n"
     version = 1
     author = "@arsic"
     attackmapping = []
