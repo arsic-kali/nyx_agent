@@ -17,7 +17,6 @@ class DownloadArguments(TaskArguments):
                 display_name="Dest Path",
                 type=ParameterType.String,
                 description="Optional filename/path label for the file as it appears in Mythic's Files tab",
-                required=False,
                 default_value="",
             ),
         ]
