@@ -43,13 +43,19 @@ Mythic will build the Docker container automatically. The container installs all
 
 ## Supported Commands
 
-| Command | Description |
-|---------|-------------|
-| `shell` | Execute a shell command and return output |
-| `ls`    | List contents of the current working directory |
-| `cd`    | Change the agent's current working directory |
-| `pwd`   | Print the current working directory |
-| `exit`  | Terminate the agent and close the callback |
+| Command  | Description |
+|----------|-------------|
+| `shell`  | Execute a shell command and return output |
+| `ls`     | List contents of the current working directory |
+| `cd`     | Change the agent's current working directory |
+| `pwd`    | Print the current working directory |
+| `whoami` | Print the current user |
+| `getenv` | Print all environment variables |
+| `sleep`  | Set the agent sleep interval in seconds |
+| `jitter` | Set the agent jitter percentage |
+| `download` | Download a file from the target |
+| `upload`   | Upload a file to the target |
+| `exit`   | Terminate the agent and close the callback |
 
 ---
 
