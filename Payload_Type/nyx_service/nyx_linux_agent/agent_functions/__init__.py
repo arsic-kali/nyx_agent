@@ -6,3 +6,6 @@ from nyx_linux_agent.agent_functions import pwd
 from nyx_linux_agent.agent_functions import download
 from nyx_linux_agent.agent_functions import upload
 from nyx_linux_agent.agent_functions import whoami
+from nyx_linux_agent.agent_functions import getenv
+from nyx_linux_agent.agent_functions import sleep
+from nyx_linux_agent.agent_functions import jitter

