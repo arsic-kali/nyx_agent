@@ -30,7 +30,6 @@ class CampaignCommand(CommandBase):
     author = "@arsic"
     attackmapping = ["T1059.006"]
     argument_class = CampaignArguments
-
     async def create_go_tasking(self, taskData: PTTaskMessageAllData) -> PTTaskCreateTaskingMessageResponse:
         response = PTTaskCreateTaskingMessageResponse(TaskID=taskData.Task.ID, Success=True)
         files = taskData.args.get_arg("files")
