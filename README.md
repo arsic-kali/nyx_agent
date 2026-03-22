@@ -55,6 +55,7 @@ Mythic will build the Docker container automatically. The container installs all
 | `jitter` | Set the agent jitter percentage |
 | `download` | Download a file from the target |
 | `upload`   | Upload a file to the target |
+| `runpy`    | Transfer a Python script from the operator and execute it on the target |
 | `exit`   | Terminate the agent and close the callback |
 
 ---
