@@ -56,6 +56,7 @@ Mythic will build the Docker container automatically. The container installs all
 | `download` | Download a file from the target |
 | `upload`   | Upload a file to the target |
 | `runpy`    | Transfer a Python script from the operator and execute it on the target |
+| `campaign` | Transfer and execute multiple Python scripts in sequence, reporting each result separately |
 | `exit`   | Terminate the agent and close the callback |
 
 ---
