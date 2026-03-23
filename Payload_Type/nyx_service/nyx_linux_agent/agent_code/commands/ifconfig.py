@@ -1,10 +1,9 @@
 import subprocess
 
-# Execute ps -aux to return running processes
+# Runs ifconfig and returns network interface configuration
 def execute(params, task_id, callback_id):
-    cmd = "ps -aux"
     result = subprocess.run(
-        cmd,
+        "ifconfig",
         shell=True,
         capture_output=True,
         text=True,

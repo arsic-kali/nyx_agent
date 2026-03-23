@@ -12,3 +12,12 @@ from nyx_linux_agent.agent_functions import jitter
 from nyx_linux_agent.agent_functions import runpy
 from nyx_linux_agent.agent_functions import campaign
 from nyx_linux_agent.agent_functions import ps
+from nyx_linux_agent.agent_functions import users
+from nyx_linux_agent.agent_functions import cat
+from nyx_linux_agent.agent_functions import route
+from nyx_linux_agent.agent_functions import ss
+from nyx_linux_agent.agent_functions import netstat
+from nyx_linux_agent.agent_functions import ifconfig
+from nyx_linux_agent.agent_functions import passwd
+from nyx_linux_agent.agent_functions import connect
+from nyx_linux_agent.agent_functions import bindshell

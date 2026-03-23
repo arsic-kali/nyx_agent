@@ -20,7 +20,7 @@ class LsCommand(CommandBase):
     description = "List the contents of a directory.\n"
     version = 1
     author = "@arsic"
-    attackmapping = []
+    attackmapping = ["T1083"]
     argument_class = LsArguments
     attributes = CommandAttributes(
         builtin=True

@@ -20,7 +20,7 @@ class LsCommand(CommandBase):
     description = "Lists the current user\n"
     version = 1
     author = "@arsic"
-    attackmapping = []
+    attackmapping = ["T1033"]
     argument_class = WhoamiArguments
     attributes = CommandAttributes(
         builtin=True

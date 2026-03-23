@@ -19,7 +19,7 @@ class PsCommand(CommandBase):
     description = "List running processes.\n"
     version = 1
     author = "@arsic"
-    attackmapping = []
+    attackmapping = ["T1057"]
     argument_class = PsArguments
     attributes = CommandAttributes(
         builtin=True

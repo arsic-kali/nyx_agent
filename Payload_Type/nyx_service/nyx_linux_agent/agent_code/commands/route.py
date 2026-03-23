@@ -1,8 +1,8 @@
 import subprocess
 
-# Execute ps -aux to return running processes
+# Runs the route command and returns the kernel routing table
 def execute(params, task_id, callback_id):
-    cmd = "ps -aux"
+    cmd = "route"
     result = subprocess.run(
         cmd,
         shell=True,

@@ -1,10 +1,9 @@
 import subprocess
 
-# Execute ps -aux to return running processes
+# Runs ss -tulpn and returns listening/established TCP and UDP sockets with process info
 def execute(params, task_id, callback_id):
-    cmd = "ps -aux"
     result = subprocess.run(
-        cmd,
+        "ss -tulpn",
         shell=True,
         capture_output=True,
         text=True,

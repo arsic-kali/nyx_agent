@@ -1,9 +1,8 @@
 from mythic_container.MythicCommandBase import *
 from mythic_container.MythicRPC import *
 
-
-# getenv takes no parameters — empty args list and parse_arguments does nothing
-class LsArguments(TaskArguments):
+# route takes no parameters — empty args list and parse_arguments does nothing
+class RouteArguments(TaskArguments):
     def __init__(self, command_line, **kwargs):
         super().__init__(command_line, **kwargs)
         self.args = []
@@ -12,16 +11,16 @@ class LsArguments(TaskArguments):
         pass
 
 
-# Registers the getenv command with Mythic.
-class LsCommand(CommandBase):
-    cmd = "getenv"
+# Registers the route command with Mythic.
+class RouteCommand(CommandBase):
+    cmd = "route"
     needs_admin = False
-    help_cmd = "getenv"
-    description = "Lists the users environment variables.\n"
+    help_cmd = "route"
+    description = "Display routing table information.\n"
     version = 1
     author = "@arsic"
-    attackmapping = ["T1082"]
-    argument_class = LsArguments
+    attackmapping = ["T1016"]
+    argument_class = RouteArguments
     attributes = CommandAttributes(
         builtin=True
     )

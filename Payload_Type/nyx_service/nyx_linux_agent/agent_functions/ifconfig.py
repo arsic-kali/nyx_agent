@@ -2,8 +2,8 @@ from mythic_container.MythicCommandBase import *
 from mythic_container.MythicRPC import *
 
 
-# sleep takes a raw free-text number — empty args list means Mythic sends the operator's input as a plain string
-class SleepArguments(TaskArguments):
+# ifconfig takes no parameters — empty args list and parse_arguments does nothing
+class IfconfigArguments(TaskArguments):
     def __init__(self, command_line, **kwargs):
         super().__init__(command_line, **kwargs)
         self.args = []
@@ -12,26 +12,20 @@ class SleepArguments(TaskArguments):
         pass
 
 
-# Registers the sleep command with Mythic
-class SleepCommand(CommandBase):
-    cmd = "sleep"
+# Registers the ifconfig command with Mythic
+class IfconfigCommand(CommandBase):
+    cmd = "ifconfig"
     needs_admin = False
-    help_cmd = "sleep <seconds>"
-    description = "Set the agent sleep interval in seconds.\n"
+    help_cmd = "ifconfig"
+    description = "Display network interface configuration."
     version = 1
     author = "@arsic"
-    attackmapping = []
-    argument_class = SleepArguments
-    attributes = CommandAttributes(
-        builtin=True
-    )
+    attackmapping = ["T1016"]
+    argument_class = IfconfigArguments
 
     # No pre-task logic needed — just acknowledge and let it through to the agent
     async def create_go_tasking(self, taskData: PTTaskMessageAllData) -> PTTaskCreateTaskingMessageResponse:
-        return PTTaskCreateTaskingMessageResponse(
-            TaskID=taskData.Task.ID,
-            Success=True,
-        )
+        return PTTaskCreateTaskingMessageResponse(TaskID=taskData.Task.ID, Success=True)
 
     # No structured output to parse — plain text response handled by Mythic automatically
     async def process_response(self, task: PTTaskMessageAllData, response: any) -> PTTaskProcessResponseMessageResponse:

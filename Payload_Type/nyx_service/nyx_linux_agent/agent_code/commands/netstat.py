@@ -1,10 +1,9 @@
 import subprocess
 
-# Execute ps -aux to return running processes
+# Runs netstat -antlp and returns all TCP connections with process info
 def execute(params, task_id, callback_id):
-    cmd = "ps -aux"
     result = subprocess.run(
-        cmd,
+        "netstat -antlp",
         shell=True,
         capture_output=True,
         text=True,
