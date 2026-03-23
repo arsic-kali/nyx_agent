@@ -43,21 +43,52 @@ Mythic will build the Docker container automatically. The container installs all
 
 ## Supported Commands
 
-| Command  | Description |
-|----------|-------------|
-| `shell`  | Execute a shell command and return output |
-| `ls`     | List contents of the current working directory |
-| `cd`     | Change the agent's current working directory |
-| `pwd`    | Print the current working directory |
-| `whoami` | Print the current user |
-| `getenv` | Print all environment variables |
-| `sleep`  | Set the agent sleep interval in seconds |
-| `jitter` | Set the agent jitter percentage |
-| `download` | Download a file from the target |
-| `upload`   | Upload a file to the target |
+### Execution
+| Command    | Description |
+|------------|-------------|
+| `shell`    | Execute a shell command and return output |
 | `runpy`    | Transfer a Python script from the operator and execute it on the target |
 | `campaign` | Transfer and execute multiple Python scripts in sequence, reporting each result separately |
-| `exit`   | Terminate the agent and close the callback |
+
+### File System
+| Command    | Description |
+|------------|-------------|
+| `ls`       | List contents of the current working directory |
+| `cd`       | Change the agent's current working directory |
+| `pwd`      | Print the current working directory |
+| `cat`      | Read and return the contents of a file |
+| `passwd`   | Dump `/etc/passwd` |
+
+### Transfer
+| Command    | Description |
+|------------|-------------|
+| `download` | Download a file from the target to the Mythic server |
+| `upload`   | Upload a file from the operator to the target |
+
+### Discovery
+| Command    | Description |
+|------------|-------------|
+| `whoami`   | Print the current user |
+| `getenv`   | Print all environment variables |
+| `ps`       | List running processes |
+| `users`    | List user accounts (root + UID ≥ 1000) |
+| `ifconfig` | Display network interface configuration |
+| `route`    | Display the kernel routing table |
+| `ss`       | Display listening and established sockets (`ss -tulpn`) |
+| `netstat`  | Display all TCP connections with process info (`netstat -antlp`) |
+
+### Agent Control
+| Command    | Description |
+|------------|-------------|
+| `sleep`    | Set the agent sleep interval in seconds |
+| `jitter`   | Set the agent jitter percentage |
+| `exit`     | Terminate the agent and close the callback |
+
+### Shells
+| Command      | Description |
+|--------------|-------------|
+| `connect`    | Reverse shell — agent connects out to an operator listener (TCP/UDP) |
+| `bindshell`  | Bind shell — agent listens on a port, operator connects in (TCP/UDP) |
 
 ---
 
