@@ -58,7 +58,7 @@ class RunpyCommand(CommandBase):
 
         build_dir = tempfile.mkdtemp()
         try:
-            script_path = os.path.join(build_dir, "script.py")
+            script_path = os.path.join(build_dir, "nyx_script.py")
             with open(script_path, "wb") as fh:
                 fh.write(file_resp.Content)
 
@@ -69,7 +69,7 @@ class RunpyCommand(CommandBase):
                     "--distpath", dist_dir,
                     "--workpath", os.path.join(build_dir, "work"),
                     "--specpath", os.path.join(build_dir, "spec"),
-                    "script.py",
+                    "nyx_script.py",
                 ],
                 cwd=build_dir,
                 capture_output=True,
@@ -81,7 +81,7 @@ class RunpyCommand(CommandBase):
                 response.Error = f"PyInstaller failed:\n{result.stderr}"
                 return response
 
-            with open(os.path.join(dist_dir, "script"), "rb") as fh:
+            with open(os.path.join(dist_dir, "nyx_script"), "rb") as fh:
                 binary = fh.read()
 
             # Register the compiled binary with Mythic and swap in its file_id
