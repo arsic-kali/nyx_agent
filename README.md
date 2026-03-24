@@ -60,10 +60,17 @@ Mythic will build the Docker container automatically. The container installs all
 | `passwd`   | Dump `/etc/passwd` |
 
 ### Transfer
-| Command    | Description |
-|------------|-------------|
-| `download` | Download a file from the target to the Mythic server |
-| `upload`   | Upload a file from the operator to the target |
+| Command         | Description |
+|-----------------|-------------|
+| `download`      | Download a file from the target to the Mythic server |
+| `upload`        | Upload a file from the operator to the target |
+| `bulk_download` | Recursively download all files in a directory from the target — each file appears separately in Mythic's Files tab |
+
+### Archives
+| Command  | Description |
+|----------|-------------|
+| `zip`    | Recursively zip a directory on the target and save it to a specified path |
+| `unzip`  | Extract a zip archive on the target to a specified directory. Pair with `upload` to transfer a directory from the operator machine to the target |
 
 ### Discovery
 | Command    | Description |
