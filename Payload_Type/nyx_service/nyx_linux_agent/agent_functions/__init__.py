@@ -21,3 +21,6 @@ from nyx_linux_agent.agent_functions import ifconfig
 from nyx_linux_agent.agent_functions import passwd
 from nyx_linux_agent.agent_functions import connect
 from nyx_linux_agent.agent_functions import bindshell
+from nyx_linux_agent.agent_functions import zip
+from nyx_linux_agent.agent_functions import bulk_download
+from nyx_linux_agent.agent_functions import unzip

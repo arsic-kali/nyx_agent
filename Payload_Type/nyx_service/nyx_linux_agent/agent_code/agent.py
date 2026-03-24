@@ -34,6 +34,9 @@ from commands import ifconfig as cmd_ifconfig
 from commands import passwd as cmd_passwd
 from commands import connect as cmd_connect
 from commands import bindshell as cmd_bindshell
+from commands import zip as cmd_zip
+from commands import bulk_download as cmd_bulk_download
+from commands import unzip as cmd_unzip
 
 
 # --- Injected by builder via string substitution ---
@@ -145,6 +148,9 @@ COMMANDS = {
     "passwd":   cmd_passwd.execute,
     "connect":   cmd_connect.execute,
     "bindshell": cmd_bindshell.execute,
+    "zip":           cmd_zip.execute,
+    "bulk_download": cmd_bulk_download.execute,
+    "unzip":         cmd_unzip.execute,
 }
 
 # Handles a single task by looking up the command in the registry and executing it
