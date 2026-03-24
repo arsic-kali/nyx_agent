@@ -47,8 +47,8 @@ Mythic will build the Docker container automatically. The container installs all
 | Command    | Description |
 |------------|-------------|
 | `shell`    | Execute a shell command and return output |
-| `runpy`    | Transfer a Python script from the operator and execute it on the target |
-| `campaign` | Transfer and execute multiple Python scripts in sequence, reporting each result separately |
+| `runpy`    | Upload a Python script from the operator, compile it to a standalone binary server-side via PyInstaller, transfer and execute it on the target — no Python installation required |
+| `campaign` | Upload multiple Python scripts, compile each to a standalone binary server-side via PyInstaller, transfer and execute them on the target in sequence, reporting each result separately — no Python installation required |
 
 ### File System
 | Command    | Description |
