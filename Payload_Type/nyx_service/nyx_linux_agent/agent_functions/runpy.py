@@ -40,11 +40,67 @@ class RunpyCommand(CommandBase):
     attackmapping = ["T1059.006"]
     argument_class = RunpyArguments
 
-    # Shows the script args in the Mythic UI task entry if any were provided
+    # Compiles the uploaded script into a standalone binary with PyInstaller so the target
+    # needs no Python installation. Replaces the script file_id with the compiled binary's
+    # file_id before the task is dispatched to the agent.
     async def create_go_tasking(self, taskData: PTTaskMessageAllData) -> PTTaskCreateTaskingMessageResponse:
+        import os, shutil, subprocess, tempfile
         response = PTTaskCreateTaskingMessageResponse(TaskID=taskData.Task.ID, Success=True)
-        args = taskData.args.get_arg("args")
-        response.DisplayParams = f"args: {args}" if args else ""
+        file_id = taskData.args.get_arg("file")
+        args    = taskData.args.get_arg("args")
+
+        # Fetch the script bytes from Mythic
+        file_resp = await SendMythicRPCFileGetContent(MythicRPCFileGetContentMessage(AgentFileId=file_id))
+        if not file_resp.Success:
+            response.Success = False
+            response.Error = f"failed to fetch script: {file_resp.Error}"
+            return response
+
+        build_dir = tempfile.mkdtemp()
+        try:
+            script_path = os.path.join(build_dir, "script.py")
+            with open(script_path, "wb") as fh:
+                fh.write(file_resp.Content)
+
+            dist_dir = os.path.join(build_dir, "dist")
+            result = subprocess.run(
+                [
+                    "pyinstaller", "--onefile",
+                    "--distpath", dist_dir,
+                    "--workpath", os.path.join(build_dir, "work"),
+                    "--specpath", os.path.join(build_dir, "spec"),
+                    "script.py",
+                ],
+                cwd=build_dir,
+                capture_output=True,
+                text=True,
+            )
+
+            if result.returncode != 0:
+                response.Success = False
+                response.Error = f"PyInstaller failed:\n{result.stderr}"
+                return response
+
+            with open(os.path.join(dist_dir, "script"), "rb") as fh:
+                binary = fh.read()
+
+            # Register the compiled binary with Mythic and swap in its file_id
+            create_resp = await SendMythicRPCFileCreate(MythicRPCFileCreateMessage(
+                TaskID=taskData.Task.ID,
+                FileContents=binary,
+                DeleteAfterFetch=True,
+            ))
+            if not create_resp.Success:
+                response.Success = False
+                response.Error = f"failed to register binary: {create_resp.Error}"
+                return response
+
+            taskData.args.set_arg("file", create_resp.AgentFileId)
+            response.DisplayParams = f"args: {args}" if args else "(compiled)"
+
+        finally:
+            shutil.rmtree(build_dir, ignore_errors=True)
+
         return response
 
     # No structured output to parse — plain text response handled by Mythic automatically

