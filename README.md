@@ -90,6 +90,7 @@ Mythic will build the Docker container automatically. The container installs all
 | `sleep`    | Set the agent sleep interval in seconds |
 | `jitter`   | Set the agent jitter percentage |
 | `exit`     | Terminate the agent and close the callback |
+| `pspawn`   | Spawn a new agent instance as a separate process, generating a second independent callback |
 
 ### Shells
 | Command      | Description |

@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# PyInstaller build artifacts
+build/
+dist/
+*.spec
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Compiled payloads / binaries
+*.bin
+*.elf
+
+# Mythic build temp directories
+/tmp/
+
+# Sensitive infrastructure — never commit real C2 configs
+*.env
