@@ -5,24 +5,18 @@ class EnumHostArguments(TaskArguments):
         super().__init__(command_line, **kwargs)
 
     async def parse_arguments(self):
-        """
-        Parse the input command line from Mythic into parameters
-        """
-        # Add a single string argument "mode" with default value
         self.add_arg(
             name="mode",
             type=ParameterType.String,
             description="Enumeration mode: quick (default) or full",
             default_value="quick"
         )
-
-        # If user provided a value on the command line, override
         if self.command_line:
             self.add_arg("mode", self.command_line.strip())
 
 
 class EnumHostCommand(CommandBase):
-    cmd = "enum_host"  # Command name in Mythic
+    cmd = "enum_host"
     needs_admin = False
     help_cmd = "enum_host [quick|full]"
     description = "Enumerate host information (system, user, network, files, etc.)"
