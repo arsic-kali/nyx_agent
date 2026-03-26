@@ -25,3 +25,4 @@ from nyx_linux_agent.agent_functions import zip
 from nyx_linux_agent.agent_functions import bulk_download
 from nyx_linux_agent.agent_functions import unzip
 from nyx_linux_agent.agent_functions import pspawn
+from nyx_linux_agent.agent_functions import enum_host
