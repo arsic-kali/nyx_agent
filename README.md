@@ -83,6 +83,7 @@ Mythic will build the Docker container automatically. The container installs all
 | `route`    | Display the kernel routing table |
 | `ss`       | Display listening and established sockets (`ss -tulpn`) |
 | `netstat`  | Display all TCP connections with process info (`netstat -antlp`) |
+| `enum_host` | Display a quick overview of system, user, network, process, and file information |
 
 ### Agent Control
 | Command    | Description |
